@@ -46,12 +46,8 @@ echo ""
 echo "Installing lib need for tmux"
 sudo apt-get -y install libevent-dev
 sudo apt-get -y install libncurses5-dev
+sudo apt-get -y install tmux
 cd
-cd tmp
-git clone https://github.com/tmux/tmux.git
-cd tmux
-sh autogen.sh
-./configure && make
 
 echo ""
 echo "====================================="
@@ -64,10 +60,16 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 echo ""
 echo "Copy config file .................."
+cd
 cd tmp/my-linux
 cp ./config/.zshrc ~/
 cp ./config/.tmux.conf ~/
+cp -r config/.zsh ~/
 tmux source-file ~/.tmux.conf
+echo ""
+echo "Make ZSH default..................."
+sh -s $(which zsh)
+
 
 echo "Installing powerline font............"
 cd

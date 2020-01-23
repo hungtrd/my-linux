@@ -3,6 +3,8 @@
 # catch non-zsh and non-interactive shells
 [[ $- == *i* && $ZSH_VERSION ]] && SHELL=/usr/bin/zsh || return 0
 
+export ZSH=$HOME/.oh-my-zsh
+
 # set some defaults
 export MANWIDTH=100
 export HISTSIZE=10000
@@ -39,15 +41,21 @@ done
 # PROMPT_USERFMT='%n%f@%F{red}%m'
 # PROMPT_ECODE="%(?,,%F{red}%? )"
 
+plugins=(
+    archlinux
+    git
+    history-substring-search
+    colored-man-pages
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
 # load the prompt last
 prompt simpl
 
 # system info and AL ascii art
 # al-info
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
 # Start tmux
 if [ "$TMUX" = "" ]; then tmux; fi
