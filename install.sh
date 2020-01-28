@@ -10,6 +10,9 @@ echo "====================================="
 echo "============== Update ==============="
 echo "====================================="
 echo ""
+echo "Add repositories....................."
+sudo add-apt-repository ppa:mmstick76/alacritty
+
 echo "Installing update...................."
 sudo apt-get update
 echo ""
@@ -19,7 +22,7 @@ echo ""
 echo "====================================="
 echo "===== Install Necessary program ====="
 echo "====================================="
-sudo apt-get -y install git-core curl build-essential
+sudo apt-get -y install git-core curl build-essential alacritty
 echo ""
 echo "Installing MySQL....................."
 sudo apt-get -y install mysql-server mysql-client libmysqlclient-dev
@@ -55,12 +58,18 @@ echo "============ Install Vim ============"
 echo "====================================="
 echo ""
 sudo apt-get -y install vim neovim
-echo "installing Vundle........."
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+echo "installing Plugin Manager........."
+mkdir -p ~/.config/nvim
+sudo apt-get install neovim python3 python3-pip git curl exuberant-ctags -y
+
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# (Optional but recommended) Install a nerd font for icons and a beautiful airline bar (https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts) (I'll be using Iosevka for Powerline)
+curl -fLo ~/.fonts/Iosevka\ Term\ Nerd\ Font\ Complete.ttf --create-dirs https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Iosevka/Regular/complete/Iosevka%20Term%20Nerd%20Font%20Complete.ttf
 
 echo ""
 echo "Copy config file .................."
 cd
+mkdir tmp
 cd tmp/my-linux
 cp ./config/.zshrc ~/
 cp ./config/.tmux.conf ~/
@@ -73,7 +82,6 @@ sh -s $(which zsh)
 
 echo "Installing powerline font............"
 cd
-mkdir tmp
 cd tmp
 git clone https://github.com/powerline/fonts.git
 cd fonts && sudo ./install.sh
