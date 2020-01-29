@@ -74,6 +74,7 @@ cd tmp/my-linux
 cp ./config/.zshrc ~/
 cp ./config/.tmux.conf ~/
 cp -r config/.zsh ~/
+cp ./config/.alacritty.yml ~/.config/alacrity/alacrity.yml
 tmux source-file ~/.tmux.conf
 echo ""
 echo "Make ZSH default..................."
