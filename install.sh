@@ -75,7 +75,12 @@ cp ./config/.zshrc ~/
 cp ./config/.tmux.conf ~/
 cp -r config/.zsh ~/
 cp ./config/.alacritty.yml ~/.config/alacrity/alacrity.yml
+cp ./config/init.vim ~/.config/nvim/
 tmux source-file ~/.tmux.conf
+
+# install coc-json & coc-html and exit
+vim -c 'CocInstall -sync coc-json coc-html coc-yank coc-css coc-pairs coc-tsserver coc-yaml coc-lists coc-snippets coc-ultisnips coc-phpls coc-xml coc-syntax|q'
+
 echo ""
 echo "Make ZSH default..................."
 sh -s $(which zsh)

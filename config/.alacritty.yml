@@ -75,3 +75,7 @@ colors:
 #      magenta: '0xB48EAD'
 #      cyan:    '0x8FBCBB'
 #      white:   '0xECEFF4'
+shell:
+    program: /usr/local/bin/tmux
+    args:
+     - -u # force UTF-8 in tmux
