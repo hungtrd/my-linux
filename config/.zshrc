@@ -42,13 +42,11 @@ done
 # PROMPT_ECODE="%(?,,%F{red}%? )"
 
 plugins=(
-    archlinux
-    git
-    history-substring-search
-    colored-man-pages
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
+
+ZSH_THEME="dracula"
 
 source $ZSH/oh-my-zsh.sh
 # load the prompt last
@@ -66,3 +64,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="~/.composer/vendor/bin:$PATH"
+
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH

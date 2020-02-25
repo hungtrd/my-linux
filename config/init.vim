@@ -10,35 +10,37 @@ let vimplug_exists=expand('~/.local/share/nvim/site/autoload/plug.vim')
 " --- Begin Plugin Manager -----------------
 
 call plug#begin(expand('~/.config/nvim/plugged'))
-	" Some Git stuff
-	Plug 'tpope/vim-fugitive'
+    " Some Git stuff
+    Plug 'tpope/vim-fugitive'
 
-  " Comments code
-  Plug 'tpope/vim-commentary'
+    " Comments code
+    Plug 'tpope/vim-commentary'
+    Plug 'preservim/nerdcommenter'
 
-	" LSP support
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'w0rp/ale'
+    " LSP support
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'w0rp/ale'
 
-  " search
-  Plug 'junegunn/fzf.vim'
+    " search
+    Plug 'junegunn/fzf.vim'
 
-	Plug 'preservim/nerdtree'
-  Plug 'jistr/vim-nerdtree-tabs'
+    Plug 'preservim/nerdtree'
+    Plug 'jistr/vim-nerdtree-tabs'
 
-	" UI stuff
-	Plug 'dracula/vim', { 'as': 'dracula'  }
-  Plug 'Yggdroot/indentLine'
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'ryanoasis/vim-devicons'
+    " UI stuff
+    Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'jwalton512/vim-blade'
+    Plug 'Yggdroot/indentLine'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'ryanoasis/vim-devicons'
 
-  " Distraction-free writing
-  Plug 'junegunn/goyo.vim'
+    " Distraction-free writing
+    Plug 'junegunn/goyo.vim'
 
 
-  " Other
-  Plug 'mhinz/vim-startify'                               " cool start up screen
+    " Other
+    Plug 'mhinz/vim-startify'                               " cool start up screen
 
 call plug#end()
 
@@ -59,17 +61,20 @@ set autoread
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set expandtab
 set pastetoggle=<F3>
 set encoding=UTF-8
 set nomodeline
 set termguicolors
 
+let mapleader = ","
+
 set background=dark
 colorscheme dracula
+
 
 "================== Plugin Config ======================"
 "
@@ -99,6 +104,17 @@ let airline#extensions#vista#enabled = 1                " vista integration
 " Startify
 let g:startify_session_persistence = 1
 
+" NerdCommenter
+autocmd BufRead,BufNewFile *.blade.php set filetype=blade
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+
+" Vim-blade
+let g:blade_custom_directives = ['datetime', 'javascript']
+let g:blade_custom_directives_pairs = {
+      \   'markdown': 'endmarkdown',
+      \   'cache': 'endcache',
+      \ }
 " Coc Config
 
 inoremap <silent><expr> <TAB>
@@ -177,4 +193,8 @@ nmap <C-w><right> <C-w> -
 
 "================== Custom Mapping ========================"
 "================== Custom Functions ======================"
-
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+" set t_ZH=^[[3m
+" set t_ZR=^[[23m
+hi Comment cterm=italic
