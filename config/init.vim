@@ -27,8 +27,11 @@ call plug#begin(expand('~/.config/nvim/plugged'))
     Plug 'preservim/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
 
-    " UI stuff
+    " Theme
     Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'arcticicestudio/nord-vim'
+
+    " UI stuff
     Plug 'jwalton512/vim-blade'
     Plug 'Yggdroot/indentLine'
     Plug 'vim-airline/vim-airline'
@@ -38,9 +41,8 @@ call plug#begin(expand('~/.config/nvim/plugged'))
     " Distraction-free writing
     Plug 'junegunn/goyo.vim'
 
-
     " Other
-    Plug 'mhinz/vim-startify'                               " cool start up screen
+    Plug 'mhinz/vim-startify'
 
 call plug#end()
 
@@ -53,10 +55,21 @@ if has('mouse')
   set mouse=a
 endif
 
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
 syntax on
 set t_Co=256
+
+set nowrap
+set winminheight=0
+
+set cursorline
 set number
 set relativenumber
+
 set autoread
 set autoindent
 set smartindent
@@ -70,10 +83,28 @@ set encoding=UTF-8
 set nomodeline
 set termguicolors
 
+" Better display for messages
+set cmdheight=1
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
 let mapleader = ","
 
-set background=dark
-colorscheme dracula
+" set background=dark
+" colorscheme dracula
+
+let g:nord_cursor_line_number_background = 1
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+
+colorscheme nord
 
 
 "================== Plugin Config ======================"
@@ -88,7 +119,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let g:nerdtree_tabs_open_on_console_startup=1
 
 " Vim-airline config --------------
-" let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 0
 let g:airline#themes#clean#palette = 1
 call airline#parts#define_raw('linenr', '%l')
@@ -132,6 +162,12 @@ endfunction
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<S-Tab>'
 
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " list of the extensions required
 let g:coc_global_extensions = [
             \'coc-yank',
@@ -147,6 +183,7 @@ let g:coc_global_extensions = [
             \'coc-phpls',
             \'coc-xml',
             \'coc-syntax',
+            \'coc-emmet',
             \]
 
 " ALE
@@ -193,8 +230,11 @@ nmap <C-w><right> <C-w> -
 
 "================== Custom Mapping ========================"
 "================== Custom Functions ======================"
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
-" set t_ZH=^[[3m
-" set t_ZR=^[[23m
-hi Comment cterm=italic
+" hi Normal     ctermbg=NONE guibg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
+
+
+""" hide the tilde on non-existed line (for minimalism UI)
+set fcs=eob:\
+highlight Comment cterm=italic
