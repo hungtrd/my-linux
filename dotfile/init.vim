@@ -21,7 +21,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'w0rp/ale'
 
-    " search
+    " Search
     Plug 'junegunn/fzf.vim'
 
     Plug 'preservim/nerdtree'
@@ -55,13 +55,8 @@ if has('mouse')
   set mouse=a
 endif
 
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-
 syntax on
-set t_Co=256
+" set t_Co=256
 
 set nowrap
 set winminheight=0
@@ -81,7 +76,8 @@ set expandtab
 set pastetoggle=<F3>
 set encoding=UTF-8
 set nomodeline
-set termguicolors
+" set termguicolors
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Better display for messages
 set cmdheight=1
@@ -96,9 +92,6 @@ set shortmess+=c
 set signcolumn=yes
 
 let mapleader = ","
-
-" set background=dark
-" colorscheme dracula
 
 let g:nord_cursor_line_number_background = 1
 let g:nord_italic = 1
