@@ -21,8 +21,18 @@ call plug#begin(expand('~/.config/nvim/plugged'))
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'w0rp/ale'
 
+    " Format code
+    Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+    " Highlight
+    Plug 'pangloss/vim-javascript'
+    Plug 'mxw/vim-jsx'
+    Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
+
     " Search
     Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
     Plug 'preservim/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
@@ -30,10 +40,11 @@ call plug#begin(expand('~/.config/nvim/plugged'))
     " Theme
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'arcticicestudio/nord-vim'
+    Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
     " UI stuff
     Plug 'jwalton512/vim-blade'
-    Plug 'Yggdroot/indentLine'
+    " Plug 'Yggdroot/indentLine'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'ryanoasis/vim-devicons'
@@ -69,15 +80,20 @@ set autoread
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set expandtab
 set pastetoggle=<F3>
 set encoding=UTF-8
 set nomodeline
-" set termguicolors
-" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" if (has('nvim'))
+"   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+" endif
+" if (has('termguicolors'))
+"   set termguicolors
+" endif
 
 " Better display for messages
 set cmdheight=1
@@ -93,12 +109,19 @@ set signcolumn=yes
 
 let mapleader = ","
 
-let g:nord_cursor_line_number_background = 1
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
+" Config Nord theme
+" let g:nord_cursor_line_number_background = 1
+" let g:nord_italic = 1
+" let g:nord_italic_comments = 1
+" colorscheme nord
 
-colorscheme nord
+" Config Material theme
+let g:material_theme_style = 'palenight'
+let g:material_terminal_italics = 1
+colorscheme material
 
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
 "================== Plugin Config ======================"
 "
@@ -124,8 +147,13 @@ let g:airline#extensions#tabline#fnamemod = ':t'        " show only file name on
 let g:airline#extensions#ale#enabled = 1                " ALE integration
 let airline#extensions#vista#enabled = 1                " vista integration
 
+" Fzf mapping
+nnoremap <silent> <C-f> :Files<CR>
+nnoremap <silent> <Leader>f :Rg<CR>
+" Ignore filename when search in file
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 " Startify
-let g:startify_session_persistence = 1
+let g:startify_session_persistence = 0
 
 " NerdCommenter
 autocmd BufRead,BufNewFile *.blade.php set filetype=blade
@@ -160,6 +188,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>do <Plug>(coc-codeaction)
+nnoremap <silent> K :call CocAction('doHover')<CR>
 
 " list of the extensions required
 let g:coc_global_extensions = [
