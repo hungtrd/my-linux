@@ -1,8 +1,21 @@
-"****************************************************"
-"******** VIM CONFIGURATION FILE ********************"
-"******** Author: HungTran **************************"
-"****************************************************"
 
+ __    __                       __                      __
+"|  \  |  \                     |  \                    |  \
+"| $$\ | $$  ______    ______  _| $$_    __    __   ____| $$ __    __
+"| $$$\| $$ |      \  /      \|   $$ \  |  \  |  \ /      $$|  \  |  \
+"| $$$$\ $$  \$$$$$$\|  $$$$$$\\$$$$$$  | $$  | $$|  $$$$$$$| $$  | $$
+"| $$\$$ $$ /      $$| $$   \$$ | $$ __ | $$  | $$| $$  | $$| $$  | $$
+"| $$ \$$$$|  $$$$$$$| $$       | $$|  \| $$__/ $$| $$__| $$| $$__/ $$
+"| $$  \$$$ \$$    $$| $$        \$$  $$ \$$    $$ \$$    $$ \$$    $$
+" \$$   \$$  \$$$$$$$ \$$         \$$$$   \$$$$$$   \$$$$$$$ _\$$$$$$$
+"                                                           |  \__| $$
+"                                                            \$$    $$
+"                                                             \$$$$$$
+
+"********************************************************************"
+"*********************** VIM CONFIGURATION FILE *********************"
+"*********************** Author: HungTran ***************************"
+"********************************************************************"
 
 
 let vimplug_exists=expand('~/.local/share/nvim/site/autoload/plug.vim')
@@ -36,6 +49,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 
     Plug 'preservim/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 
     " Theme
     Plug 'dracula/vim', { 'as': 'dracula' }
@@ -67,7 +81,7 @@ if has('mouse')
 endif
 
 syntax on
-" set t_Co=256
+set t_Co=256
 
 set nowrap
 set winminheight=0
@@ -87,16 +101,17 @@ set expandtab
 set pastetoggle=<F3>
 set encoding=UTF-8
 set nomodeline
+set splitright                                          " open vertical split to the right
+set splitbelow                                          " open horizontal split to the bottom
 
-" if (has('nvim'))
-"   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-" endif
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
 " if (has('termguicolors'))
-"   set termguicolors
+  " set termguicolors
 " endif
 
 " Better display for messages
-set cmdheight=1
+set cmdheight=2
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -128,11 +143,17 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 " Nerdtree config
 map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let g:NERDTreeIgnore = ['^node_modules$']
 
 " Nerdtree tabs config
 let g:nerdtree_tabs_open_on_console_startup=1
+" Nerdtree Git
+let g:NERDTreeGitStatusUseNerdFonts = 1
 
 " Vim-airline config --------------
 let g:airline_powerline_fonts = 0
@@ -152,8 +173,56 @@ nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
 " Ignore filename when search in file
 command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
 " Startify
-let g:startify_session_persistence = 0
+let g:startify_padding_left = 10
+let g:startify_session_persistence = 1
+let g:startify_enable_special = 0
+let g:startify_change_to_vcs_root = 1
+let g:startify_lists = [
+    \ { 'type': 'dir'       },
+    \ { 'type': 'files'     },
+    \ { 'type': 'sessions'  },
+    \ { 'type': 'bookmarks' },
+    \ { 'type': 'commands' },
+    \ ]
+
+" bookmark examples
+let  g:startify_bookmarks =  [
+    \ {'v': '~/.config/nvim'},
+    \ {'d': '~/.dotfiles' }
+    \ ]
+
+" custom commands
+let g:startify_commands = [
+    \ {'ch':  ['Health Check', ':checkhealth']},
+    \ {'ps': ['Plugins status', ':PlugStatus']},
+    \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
+    \ {'uc': ['Update coc Plugins', ':CocUpdate']},
+    \ {'h':  ['Help', ':help']},
+    \ ]
+
+" custom banner
+let g:startify_custom_header = [
+ \ '',
+ \ '                                                    ▟▙            ',
+ \ '                                                    ▝▘            ',
+ \ '            ██▃▅▇█▆▖  ▗▟████▙▖   ▄████▄   ██▄  ▄██  ██  ▗▟█▆▄▄▆█▙▖',
+ \ '            ██▛▔ ▝██  ██▄▄▄▄██  ██▛▔▔▜██  ▝██  ██▘  ██  ██▛▜██▛▜██',
+ \ '            ██    ██  ██▀▀▀▀▀▘  ██▖  ▗██   ▜█▙▟█▛   ██  ██  ██  ██',
+ \ '            ██    ██  ▜█▙▄▄▄▟▊  ▀██▙▟██▀   ▝████▘   ██  ██  ██  ██',
+ \ '            ▀▀    ▀▀   ▝▀▀▀▀▀     ▀▀▀▀       ▀▀     ▀▀  ▀▀  ▀▀  ▀▀',
+ \ '',
+ \ '',
+ \ '',
+ \]
+
+autocmd VimEnter *
+            \   if !argc()
+            \ |   Startify
+            \ |   NERDTree
+            \ |   wincmd w
+            \ | endif
 
 " NerdCommenter
 autocmd BufRead,BufNewFile *.blade.php set filetype=blade
@@ -180,16 +249,40 @@ function! s:check_back_space() abort
 endfunction
 
 " Navigate snippet placeholders using tab
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<S-Tab>'
+" let g:coc_snippet_next = '<Tab>'
+" let g:coc_snippet_prev = '<S-Tab>'
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" use tab to navigate snippet placeholders
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use enter to accept snippet expansion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :call <SID>GoToDefinition()<CR>
+" nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <leader>do <Plug>(coc-codeaction)
+nmap <leader> do <Plug>(coc-codeaction)
 nnoremap <silent> K :call CocAction('doHover')<CR>
+
+function! s:GoToDefinition()
+  if CocAction('jumpDefinition')
+    return v:true
+  endif
+
+  let ret = execute("silent! normal \<C-]>")
+  if ret =~ "Error"
+    call searchdecl(expand('<cword>'))
+  endif
+endfunction
 
 " list of the extensions required
 let g:coc_global_extensions = [
@@ -202,17 +295,22 @@ let g:coc_global_extensions = [
             \'coc-yaml',
             \'coc-lists',
             \'coc-snippets',
+            \'coc-prettier',
             \'coc-ultisnips',
             \'coc-phpls',
             \'coc-xml',
             \'coc-syntax',
             \'coc-emmet',
+            \'coc-eslint',
             \]
 
 " ALE
 let g:ale_fixers = {
             \'*': ['remove_trailing_lines', 'trim_whitespace'],
             \'javascript': ['prettier'],
+            \'typescript': ['prettier'],
+            \'javascriptreact': ['prettier'],
+            \'typescriptreact': ['prettier'],
             \'c' : ['clang-format'],
             \'cpp' : ['clang-format'],
             \'css' : ['prettier'],

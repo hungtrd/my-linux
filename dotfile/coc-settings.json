@@ -1,12 +1,42 @@
 {
-    "languageserver": {
-        "intelephense": {
-            "command": "intelephense",
-            "args": ["--stdio"],
-            "filetypes": ["php"],
-            "initializationOptions": {
-                "storagePath": "/tmp/intelephense"
-            }
-        }
-    },
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "html",
+    "css",
+    "json",
+    "javascript",
+    "typescript",
+    "javascript.jsx",
+    "typescript.tsx",
+    "javascriptreact",
+    "typescriptreact"
+  ],
+  "codeLens.enable": true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
+  "emmet.priority": 3,
+  "eslint.autoFixOnSave": true,
+  "eslint.format.enable": true,
+  "eslint.run": "onType",
+  "explorer.file.showHiddenFiles": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.width": 30,
+  "javascript.referencesCodeLens.enable": false,
+  "javascript.updateImportsOnFileMove.enable": true,
+  "prettier.jsxBracketSameLine": true,
+  "prettier.jsxSingleQuote":  true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.bracketSpacing": true,
+  "suggest.noselect": false,
+  "suggest.enablePreview": true,
+  "suggest.removeDuplicateItems": true,
+  "snippets.priority": 80,
+  "tsserver.enableJavascript": false,
+  "tsserver.formatOnType": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.referencesCodeLens.enable": false,
+  "typescript.updateImportsOnFileMove.enable": true,
+  "yank.highlight.enable": false
 }
