@@ -31,6 +31,12 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 
     " LSP support
     Plug 'neovim/nvim-lspconfig'
+    Plug 'hrsh7th/nvim-cmp'         " Autocompletion plugin
+    Plug 'hrsh7th/cmp-nvim-lsp'     " LSP source for nvim-cmp
+    Plug 'saadparwaiz1/cmp_luasnip' " Snippets source for nvim-cmp
+    Plug 'L3MON4D3/LuaSnip'         " Snippets plugin
+
+    Plug 'windwp/nvim-autopairs'
     " Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " Plug 'w0rp/ale'
     " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -46,6 +52,8 @@ call plug#begin(expand('~/.config/nvim/plugged'))
     " Plug 'peitalin/vim-jsx-typescript'
 
     " Search
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
     " Plug 'junegunn/fzf.vim'
     " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
@@ -62,15 +70,16 @@ call plug#begin(expand('~/.config/nvim/plugged'))
     " UI stuff
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'ryanoasis/vim-devicons'
+    Plug 'kyazdani42/nvim-web-devicons'
     " Plug 'jwalton512/vim-blade'
     " Plug 'Yggdroot/indentLine'
-    " Plug 'kyazdani42/nvim-web-devicons'
 
     " Distraction-free writing
     Plug 'junegunn/goyo.vim'
 
     " Other
     Plug 'mhinz/vim-startify'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -107,13 +116,16 @@ set nomodeline
 set splitright                                          " open vertical split to the right
 set splitbelow                                          " open horizontal split to the bottom
 
+autocmd FileType ruby setlocal shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType lua setlocal shiftwidth=2 tabstop=2
+autocmd FileType vim setlocal shiftwidth=2 tabstop=2
+
 " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
 if (has('termguicolors'))
   set termguicolors
 endif
-
-let highlight_function_name = 1
 
 " Better display for messages
 " set cmdheight=2
@@ -149,22 +161,22 @@ autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeIgnore = ['^node_modules$']
 
 " Nerdtree tabs config
-" let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=1
 " Nerdtree Git
 let g:NERDTreeGitStatusUseNerdFonts = 1
 
 "------- Fzf mapping
-nnoremap <silent> <C-f> :Files<CR>
-nnoremap <silent> <Leader>f :Rg<CR>
+" nnoremap <silent> <C-f> :Files<CR>
+" nnoremap <silent> <Leader>f :Rg<CR>
 " Ignore filename when search in file
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+" command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 "------- Vim-go
 " disable all linters as that is taken care of by coc.nvim
@@ -211,7 +223,7 @@ let  g:startify_bookmarks =  [
 
 " custom commands
 let g:startify_commands = [
-    \ {'ch':  ['Health Check', ':checkhealth']},
+    \ {'ch': ['Health Check', ':checkhealth']},
     \ {'ps': ['Plugins status', ':PlugStatus']},
     \ {'pu': ['Update vim plugins',':PlugUpdate | PlugUpgrade']},
     \ {'uc': ['Update coc Plugins', ':CocUpdate']},
@@ -394,10 +406,9 @@ nmap <C-w><right> <C-w> -
 "================== Custom Mapping ========================"
 "================== Custom Functions ======================"
 " hi Normal     ctermbg=NONE guibg=NONE
-hi LineNr     ctermbg=NONE guibg=NONE
-hi SignColumn ctermbg=NONE guibg=NONE
+" hi LineNr     ctermbg=NONE guibg=NONE
+" hi SignColumn ctermbg=NONE guibg=NONE
 
 
 """ hide the tilde on non-existed line (for minimalism UI)
 set fcs=eob:\
-highlight Comment cterm=italic
