@@ -210,4 +210,4 @@ gaps inner 20
 # Auto run on startup
 exec_always feh --bg-scale ~/Pictures/wallpaper.png
 exec_always --no-startup-id ibus-daemon -d -r -x
-exec_always --no-startup-id "picom --config ~/.config/picom.conf"
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
