@@ -192,7 +192,8 @@ bar {
 }
 
 # Custom
-default_border pixel 2
+# default_border pixel 2
+default_border none
 hide_edge_borders smart
 
 # class                 border  backgr. text    indicator child_border
@@ -203,10 +204,10 @@ client.focused          #4c7899 #285577 #ffffff #2e9ef4   #81A1C1
 # client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 # smart_gaps on
-gaps inner 15
+gaps inner 20
 # gaps outer 10
-# border_radius 10
 
 # Auto run on startup
 exec_always feh --bg-scale ~/Pictures/wallpaper.png
 exec_always --no-startup-id ibus-daemon -d -r -x
+exec_always --no-startup-id "picom --config ~/.config/picom.conf"
