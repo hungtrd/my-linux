@@ -404,6 +404,11 @@ nmap <C-w><up> <C-w> +
 nmap <C-w><right> <C-w> -
 
 "================== Custom Mapping ========================"
+" Fugitive Conflict Resolution
+nnoremap <leader>gdc :Gvdiffsplit!<CR>
+nnoremap <leader>gdh :diffget //2<CR>
+nnoremap <leader>gdl :diffget //3<CR>
+
 "================== Custom Functions ======================"
 " hi Normal     ctermbg=NONE guibg=NONE
 " hi LineNr     ctermbg=NONE guibg=NONE
