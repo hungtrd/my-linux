@@ -34,5 +34,5 @@ vim.cmd [[
 ]]
 
 -- " Use <Tab> and <S-Tab> to navigate through popup menu
--- inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
--- inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+vim.cmd[[ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>" ]]
+vim.cmd[[ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" ]]

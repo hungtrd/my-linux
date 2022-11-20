@@ -20,11 +20,15 @@ packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
+
   use 'norcalli/nvim-colorizer.lua'
 
   -- Fuzzy finder
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
+
+  -- Comment code
+  use 'tpope/vim-commentary'
 
   -- LSP
   use 'L3MON4D3/LuaSnip' -- snippet
@@ -35,6 +39,9 @@ packer.startup(function(use)
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
+
+  use 'jose-elias-alvarez/null-ls.nvim'  -- Use code action for LSP
+  use 'MunifTanjim/prettier.nvim' -- Prettier Plugin
 
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
