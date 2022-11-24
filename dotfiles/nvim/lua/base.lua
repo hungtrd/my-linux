@@ -8,6 +8,7 @@ vim.g.mapleader = ';'
 
 vim.wo.number = true
 
+vim.opt.mouse = 'a'
 vim.opt.title = true
 vim.opt.autoindent = true
 vim.opt.hlsearch = true
@@ -45,3 +46,6 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append { 'r' }
+
+-- Set tabstop
+vim.api.nvim_command('autocmd FileType go setlocal shiftwidth=4 tabstop=4 expandtab')
