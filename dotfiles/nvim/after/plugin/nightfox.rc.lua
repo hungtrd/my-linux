@@ -11,15 +11,15 @@ n.setup({
     dim_inactive = false,   -- Non focused panes set to alternative background
     styles = {              -- Style to be applied to different syntax groups
       comments = "italic",  -- Value is any valid attr-list value `:help attr-list`
-      conditionals = "NONE",
-      constants = "NONE",
-      functions = "NONE",
-      keywords = "NONE",
-      numbers = "NONE",
-      operators = "NONE",
-      strings = "NONE",
-      types = "NONE",
-      variables = "NONE",
+      -- conditionals = "NONE",
+      -- constants = "NONE",
+      -- functions = "NONE",
+      -- keywords = "NONE",
+      -- numbers = "NONE",
+      -- operators = "NONE",
+      -- strings = "NONE",
+      -- types = "NONE",
+      -- variables = "NONE",
     },
     inverse = {             -- Inverse highlight for different types
       match_paren = false,

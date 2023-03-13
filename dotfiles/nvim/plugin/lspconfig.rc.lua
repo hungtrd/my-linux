@@ -1,7 +1,7 @@
 local status, nvim_lsp = pcall(require, 'lspconfig')
 if (not status) then return end
 
-util = require "lspconfig/util"
+local util = require "lspconfig/util"
 
 local protocol = require('vim.lsp.protocol')
 local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
@@ -15,6 +15,8 @@ local enable_format_on_save = function(_, bufnr)
     end,
   })
 end
+
+enable_format_on_save()
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -74,13 +76,15 @@ nvim_lsp.flow.setup {
   capabilities = capabilities
 }
 
+-- LSP js
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" }
 }
 
-nvim_lsp.sumneko_lua.setup {
+-- LSP lua
+nvim_lsp.lua_ls.setup {
   on_attach = on_attach,
   settings = {
     Lua = {
@@ -96,17 +100,26 @@ nvim_lsp.sumneko_lua.setup {
   }
 }
 
+-- LSP go
 nvim_lsp.gopls.setup {
-cmd = {"gopls", "serve"},
+  cmd = {"gopls", "serve"},
   filetypes = {"go", "gomod"},
   root_dir = util.root_pattern("go.work", "go.mod", ".git"),
   settings = {
     gopls = {
+      gofumpt = true,
       analyses = {
         unusedparams = true,
       },
       staticcheck = true,
     },
   },
+}
+
+-- LSP protobuf
+nvim_lsp.bufls.setup{
+  cmd = { "bufls", "serve" },
+  filetypes = { "proto" },
+  root_dir = util.root_pattern("buf.work.yaml", ".git")
 }
 

@@ -33,6 +33,10 @@ vim.opt.backspace = 'start,eol,indent'
 vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
 vim.opt.wildignore:append { '*/node_modules/*' }
 
+-- disable netrw at the very start of your init.lua (nvim-tree recommended)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Undercurl
 -- not work on iTerm2
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
