@@ -53,3 +53,9 @@ vim.opt.formatoptions:append { 'r' }
 
 -- Set tabstop
 vim.api.nvim_command('autocmd FileType go setlocal shiftwidth=4 tabstop=4 expandtab')
+
+-- copilot
+-- imap("<silent><script><expr>", "<C-J>", "copilot#Accept(\"\\<\CR>\")")
+local opts = { noremap = true, silent = true, expr = true }
+vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', opts)
+vim.g.copilot_no_tab_map = true

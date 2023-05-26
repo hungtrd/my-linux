@@ -11,7 +11,8 @@ packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- UI
-  use { "EdenEast/nightfox.nvim", tag = "v1.0.0" }
+  use 'EdenEast/nightfox.nvim'
+  use 'shaunsingh/nord.nvim'
   use 'nvim-lualine/lualine.nvim' -- status line
   use 'kyazdani42/nvim-web-devicons' -- icons
   use 'glepnir/lspsaga.nvim' -- LSP UIs
@@ -37,6 +38,7 @@ packer.startup(function(use)
 
   -- Comment code
   use 'tpope/vim-commentary'
+  use 'tpope/vim-surround'
 
   -- LSP
   use 'L3MON4D3/LuaSnip' -- snippet
@@ -48,7 +50,9 @@ packer.startup(function(use)
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
 
-  use 'jose-elias-alvarez/null-ls.nvim'  -- Use code action for LSP
+  use 'github/copilot.vim'
+
+  use 'jose-elias-alvarez/null-ls.nvim' -- Use code action for LSP
   use 'MunifTanjim/prettier.nvim' -- Prettier Plugin
 
   use 'windwp/nvim-autopairs'

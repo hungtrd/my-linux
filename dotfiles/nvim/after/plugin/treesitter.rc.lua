@@ -18,6 +18,8 @@ ts.setup {
     "php",
     "json",
     "yaml",
+    "markdown",
+    "markdown_inline",
     "css",
     "html",
     "lua",
