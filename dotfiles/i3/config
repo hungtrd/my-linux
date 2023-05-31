@@ -142,12 +142,13 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Bind workspace to monitors
-# set $monitor_one eDP-1
+set $monitor_one eDP-1
 
+workspace $ws10 output $monitor_one
 # workspace $ws4 output $monitor_one
 # workspace $ws5 output $monitor_one
 
-# set $monitor_two HDMI-1
+set $monitor_two HDMI-1
 
 # workspace $ws1 output $monitor_two
 # workspace $ws2 output $monitor_two
@@ -156,7 +157,6 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # workspace $ws7 output $monitor_two
 # workspace $ws8 output $monitor_two
 # workspace $ws9 output $monitor_two
-# workspace $ws10 output $monitor_two
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -195,7 +195,8 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym $mod+Shift+x exec ~/.config/i3/i3lock/lock
+# bindsym $mod+Shift+x exec ~/.config/i3/i3lock/lock
+bindsym $mod+Shift+x exec betterlockscreen -l dimblur
 # bindsym $mod+Shift+x exec ~/.config/i3/lock.sh
 # bindsym $mod+Shift+x exec i3lock --image ~/Pictures/nordtheme.png --tiling
 
@@ -218,7 +219,7 @@ default_border none
 hide_edge_borders smart
 
 # Move the current workspace to the next output
-bindsym $mod+p move workspace to output next
+bindsym $mod+Shift+p move workspace to output left
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #4c7899 #285577 #ffffff #2e9ef4   #81A1C1
@@ -232,11 +233,14 @@ gaps inner 20
 # gaps outer 10
 
 # Screenshot
-# Multi-screen screenshots with scrot
-bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+# Screenshot by flameshot
+bindsym --release Print exec flameshot gui --path ~/Pictures/flameshot
+bindsym --release Shift+Print exec flameshot screen --clipboard --path ~/Pictures/flameshot
 
+# Multi-screen screenshots with scrot
+# bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
 # OSX-like area selection screenshots
-bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
+# bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
 
 # Auto run on startup
 exec_always feh --bg-fill ~/Pictures/wallpaper.png

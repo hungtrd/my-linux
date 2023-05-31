@@ -5,6 +5,7 @@ window:
   padding:
     x: 20
     y: 20
+  opacity: 1
 font:
   # The normal (roman) font face to use.
   normal:

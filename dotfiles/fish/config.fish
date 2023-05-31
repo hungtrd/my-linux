@@ -62,3 +62,6 @@ starship init fish | source
 #set -x GOOGLE_APPLICATION_CREDENTIALS /home/hungtd/workspace/company/trial-pay/fir-project-a5e1e-5db6737b7fb2.json
 #set -x JWT_SECRET_KEY thisisprivatekey
 #set -x BIGQUERY_POINT_DATASET dev_point
+
+#set env shinonome
+set -x SHINONOME_ENV local
