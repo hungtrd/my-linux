@@ -54,6 +54,9 @@ vim.opt.formatoptions:append { 'r' }
 -- Set tabstop
 vim.api.nvim_command('autocmd FileType go setlocal shiftwidth=4 tabstop=4 expandtab')
 
+-- Set filetype
+vim.api.nvim_command('au BufNewFile,BufRead *.psql set filetype=sql')
+
 -- copilot
 -- imap("<silent><script><expr>", "<C-J>", "copilot#Accept(\"\\<\CR>\")")
 local opts = { noremap = true, silent = true, expr = true }

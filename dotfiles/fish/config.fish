@@ -65,3 +65,5 @@ starship init fish | source
 
 #set env shinonome
 set -x SHINONOME_ENV local
+
+set -x OPENAI_API_KEY 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

@@ -68,7 +68,7 @@ protocol.CompletionItemKind = {
 
 -- Set up completion using nvim_cmp with LSP source
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
-  -- vim.lsp.protocol.make_client_capabilities()
+-- vim.lsp.protocol.make_client_capabilities()
 )
 
 nvim_lsp.flow.setup {
@@ -102,8 +102,8 @@ nvim_lsp.lua_ls.setup {
 
 -- LSP go
 nvim_lsp.gopls.setup {
-  cmd = {"gopls", "serve"},
-  filetypes = {"go", "gomod"},
+  cmd = { "gopls", "serve" },
+  filetypes = { "go", "gomod" },
   root_dir = util.root_pattern("go.work", "go.mod", ".git"),
   settings = {
     gopls = {
@@ -117,9 +117,8 @@ nvim_lsp.gopls.setup {
 }
 
 -- LSP protobuf
-nvim_lsp.bufls.setup{
+nvim_lsp.bufls.setup {
   cmd = { "bufls", "serve" },
   filetypes = { "proto" },
   root_dir = util.root_pattern("buf.work.yaml", ".git")
 }
-

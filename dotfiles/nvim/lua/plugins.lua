@@ -50,7 +50,16 @@ packer.startup(function(use)
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
 
+  -- AI
   use 'github/copilot.vim'
+  use({
+    "jackMort/ChatGPT.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  })
 
   use 'jose-elias-alvarez/null-ls.nvim' -- Use code action for LSP
   use 'MunifTanjim/prettier.nvim' -- Prettier Plugin
@@ -63,4 +72,7 @@ packer.startup(function(use)
   -- Git
   use 'lewis6991/gitsigns.nvim'
   use 'dinhhuy258/git.nvim' -- For git blame & browse
+
+  -- Track coding time
+  use 'wakatime/vim-wakatime'
 end)

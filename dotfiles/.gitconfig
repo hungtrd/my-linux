@@ -1,0 +1,13 @@
+[user]
+	email = hungtd@hblab.vn
+	name = hungtd
+[core]
+	editor = vim
+[alias]
+  s = status
+  ci = commit
+  br = branch
+  co  = "!f(){ git checkout $1 && git pull;};f"
+  df = diff
+  lg = log -p
+  cb  = "!f(){ git checkout -b $1;};f"

@@ -11,6 +11,7 @@ cp -r $HOME/.config/rofi ./dotfiles
 cp -r $HOME/.config/fish ./dotfiles
 cp -r $HOME/.config/picom ./dotfiles
 cp $HOME/.tmux.conf ./dotfiles
+cp $HOME/.gitconfig ./dotfiles
 echo "Backup complete!"
 
 

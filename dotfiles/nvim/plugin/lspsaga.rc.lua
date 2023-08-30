@@ -21,8 +21,11 @@ keymap('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
 keymap('n', 'gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
 
 -- keymap('n', 'gp', '<Cmd>Lspsaga preview_definition<CR>', opts)
-keymap('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
+keymap('n', 'gp', '<Cmd>Lspsaga peek_type_definition<CR>', opts)
 keymap('n', 'gr', '<Cmd>Lspsaga rename<CR>', opts)
+
+keymap('n', 'ga', '<Cmd>Lspsaga code_action<CR>', opts)
+keymap('n', '<leader>gt', '<Cmd>Lspsaga term_toggle<CR>', opts)
 
 -- Diagnostic jump
 -- You can use <C-o> to jump back to your previous location
