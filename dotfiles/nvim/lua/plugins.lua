@@ -17,6 +17,7 @@ packer.startup(function(use)
   use 'kyazdani42/nvim-web-devicons' -- icons
   use 'glepnir/lspsaga.nvim' -- LSP UIs
   use 'nvim-lua/plenary.nvim' -- Common utilities
+  use "lukas-reineke/indent-blankline.nvim" -- indent line
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,

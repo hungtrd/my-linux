@@ -24,6 +24,7 @@ if type -q exa
 end
 
 alias cl "clear"
+alias x "exit"
 
 # Git alias
 alias gst "git status"
