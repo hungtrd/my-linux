@@ -7,6 +7,7 @@ vim.opt.fileencoding = 'utf-8'
 vim.g.mapleader = ';'
 
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 vim.opt.mouse = 'a'
 vim.opt.title = true

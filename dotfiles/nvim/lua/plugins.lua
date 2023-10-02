@@ -15,7 +15,6 @@ packer.startup(function(use)
   use 'shaunsingh/nord.nvim'
   use 'nvim-lualine/lualine.nvim' -- status line
   use 'kyazdani42/nvim-web-devicons' -- icons
-  use 'glepnir/lspsaga.nvim' -- LSP UIs
   use 'nvim-lua/plenary.nvim' -- Common utilities
   use "lukas-reineke/indent-blankline.nvim" -- indent line
   use {
@@ -42,7 +41,6 @@ packer.startup(function(use)
   use 'tpope/vim-surround'
 
   -- LSP
-  use 'L3MON4D3/LuaSnip' -- snippet
   use 'onsails/lspkind.nvim' -- vscode-like pictograms
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -50,17 +48,39 @@ packer.startup(function(use)
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
+  use 'glepnir/lspsaga.nvim'
+  -- use({
+  --   'nvimdev/lspsaga.nvim',
+  --   after = 'nvim-lspconfig',
+  --   config = function()
+  --     require('lspsaga').setup({
+  --       ui = {
+  --         code_action = '',
+  --       }
+  --     })
+  --   end,
+  -- })
+  use({ -- snippet
+    'L3MON4D3/LuaSnip',
+    -- follow latest release.
+    tag = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!:).
+    -- run = "make install_jsregexp",
+    requires = {
+      'rafamadriz/friendly-snippets',
+    }
+  })
 
   -- AI
   use 'github/copilot.vim'
-  use({
-    "jackMort/ChatGPT.nvim",
-    requires = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
-  })
+  -- use({
+  --   "jackMort/ChatGPT.nvim",
+  --   requires = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim"
+  --   }
+  -- })
 
   use 'jose-elias-alvarez/null-ls.nvim' -- Use code action for LSP
   use 'MunifTanjim/prettier.nvim' -- Prettier Plugin

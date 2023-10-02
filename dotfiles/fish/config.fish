@@ -31,6 +31,8 @@ alias gst "git status"
 alias gad "git add -A"
 alias gcm "git commit -m"
 
+alias vim "nvim"
+
 function cs
    cd $argv
    ls
@@ -68,3 +70,7 @@ starship init fish | source
 set -x SHINONOME_ENV local
 
 set -x OPENAI_API_KEY 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
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

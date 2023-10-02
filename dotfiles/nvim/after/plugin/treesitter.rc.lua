@@ -16,6 +16,7 @@ ts.setup {
     "fish",
     "bash",
     "php",
+    "python",
     "json",
     "yaml",
     "markdown",

@@ -1,9 +1,11 @@
-local status, saga = pcall(require, "lspsaga")
-if (not status) then return end
+local saga = require('lspsaga')
 
 saga.setup {
   server_filetype_map = {
     typescript = 'typescript'
+  },
+  ui = {
+    code_action = ''
   }
 }
 
@@ -18,7 +20,7 @@ keymap('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
 -- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
 -- It also supports tagstack
 -- Use <C-t> to jump back
-keymap('n', 'gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
+keymap('n', 'gd', '<Cmd>Lspsaga finder<CR>', opts)
 
 -- keymap('n', 'gp', '<Cmd>Lspsaga preview_definition<CR>', opts)
 keymap('n', 'gp', '<Cmd>Lspsaga peek_type_definition<CR>', opts)

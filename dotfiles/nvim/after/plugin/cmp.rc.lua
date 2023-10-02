@@ -2,7 +2,7 @@ local status, cmp = pcall(require, "cmp")
 if (not status) then return end
 
 local lspkind = require 'lspkind'
-local luasnip
+local luasnip = require 'luasnip'
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -13,7 +13,7 @@ end
 cmp.setup({
   snippet = {
     expand = function(args)
-      luasnip = require('luasnip').lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
@@ -28,8 +28,8 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
@@ -40,18 +40,48 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      -- elseif luasnip.jumpable(-1) then
-      --   luasnip.jump(-1)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
     end, { "i", "s" }),
-
   }),
-  sources = cmp.config.sources({
+
+  -- mapping = {
+  --   -- ... Your other mappings ...
+
+  --   ["<Tab>"] = cmp.mapping(function(fallback)
+  --     if cmp.visible() then
+  --       cmp.select_next_item()
+  --       -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+  --       -- they way you will only jump inside the snippet region
+  --     elseif luasnip.expand_or_jumpable() then
+  --       luasnip.expand_or_jump()
+  --     elseif has_words_before() then
+  --       cmp.complete()
+  --     else
+  --       fallback()
+  --     end
+  --   end, { "i", "s" }),
+
+  --   ["<S-Tab>"] = cmp.mapping(function(fallback)
+  --     if cmp.visible() then
+  --       cmp.select_prev_item()
+  --     elseif luasnip.jumpable(-1) then
+  --       luasnip.jump(-1)
+  --     else
+  --       fallback()
+  --     end
+  --   end, { "i", "s" }),
+
+  -- ... Your other mappings ...
+  -- },
+  sources = {
     { name = 'nvim_lsp' },
     { name = 'buffer' },
-  }),
+    { name = 'luasnip' },
+  },
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
   }
@@ -63,5 +93,5 @@ vim.cmd [[
 ]]
 
 -- " Use <Tab> and <S-Tab> to navigate through popup menu
-vim.cmd[[ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>" ]]
-vim.cmd[[ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" ]]
+vim.cmd [[ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>" ]]
+vim.cmd [[ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>" ]]
