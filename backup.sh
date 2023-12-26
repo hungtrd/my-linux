@@ -3,13 +3,15 @@
 
 echo "Backing up dotfiles..."
 
-cp -r $HOME/.config/nvim ./dotfiles
+# skip neovim for now
+# cp -r $HOME/.config/nvim ./dotfiles
 cp -r $HOME/.config/alacritty ./dotfiles
 cp -r $HOME/.config/i3 ./dotfiles
 cp -r $HOME/.config/i3status ./dotfiles
 cp -r $HOME/.config/rofi ./dotfiles
 cp -r $HOME/.config/fish ./dotfiles
 cp -r $HOME/.config/picom ./dotfiles
+cp -r $HOME/.config/neofetch/ ./dotfiles
 cp $HOME/.tmux.conf ./dotfiles
 cp $HOME/.gitconfig ./dotfiles
 echo "Backup complete!"

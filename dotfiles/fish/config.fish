@@ -18,24 +18,24 @@
 
 # aliases
 if type -q exa
-  alias ll "exa -l -g --icons"
-  alias lla "ll -a"
-  alias ls "exa --icons"
+    alias ll "exa -l -g --icons"
+    alias lla "ll -a"
+    alias ls "exa --icons"
 end
 
-alias cl "clear"
-alias x "exit"
+alias cl clear
+alias x exit
 
 # Git alias
 alias gst "git status"
 alias gad "git add -A"
 alias gcm "git commit -m"
 
-alias vim "nvim"
+alias vim nvim
 
 function cs
-   cd $argv
-   ls
+    cd $argv
+    ls
 end
 
 
@@ -68,9 +68,21 @@ starship init fish | source
 
 #set env shinonome
 set -x SHINONOME_ENV local
+set -x DB_HOST localhost
+set -x DB_PORT 5432
+set -x DB_PASSWORD password
+set -x DB_NAME dev_shinonome
+set -x DB_USER postgres
+
+set -x BROKER_URL broker.hivemq.com:8883
+set -x MQTT_CLIENT_ID shinonome-api
+set -x MQTT_USERNAME shinononme
+set -x MQTT_PASSWORD password
+set -x CONTENT_DOWNLOAD_URL https://dev-content.saiun.retail-ai.jp
 
 set -x OPENAI_API_KEY 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
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+set --export PATH /home/hungtd/.cargo/bin $PATH
