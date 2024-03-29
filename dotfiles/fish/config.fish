@@ -58,30 +58,6 @@ set -x PATH "$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 # shell prompt
 starship init fish | source
 
-# Set env for project
-#set -x SECRET_PEPPER cDNzNnY5eSRCJkUpSEBNY1FlVGhXbVpxNHQ3dyF6JUM= #p3s6v9y$B&E)H@McQeThWmZq4t7w!z%C
-#set -x TEST_FLG true
-#set -x DOCS_BUCKET_NAME clean-docs-dev
-#set -x GOOGLE_APPLICATION_CREDENTIALS /home/hungtd/workspace/company/trial-pay/fir-project-a5e1e-5db6737b7fb2.json
-#set -x JWT_SECRET_KEY thisisprivatekey
-#set -x BIGQUERY_POINT_DATASET dev_point
-
-#set env shinonome
-set -x SHINONOME_ENV local
-set -x DB_HOST localhost
-set -x DB_PORT 5432
-set -x DB_PASSWORD password
-set -x DB_NAME dev_shinonome
-set -x DB_USER postgres
-
-set -x BROKER_URL broker.hivemq.com:8883
-set -x MQTT_CLIENT_ID shinonome-api
-set -x MQTT_USERNAME shinononme
-set -x MQTT_PASSWORD password
-set -x CONTENT_DOWNLOAD_URL https://dev-content.saiun.retail-ai.jp
-
-set -x OPENAI_API_KEY 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
-
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
