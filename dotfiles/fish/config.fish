@@ -47,18 +47,23 @@ end
 
 
 # Variables
+
+# go
 set -x GOROOT /usr/local/go
 set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $GOROOT/bin $PATH
 
+# ruby
 set -x PATH "$HOME/.rbenv/bin:$PATH"
 status --is-interactive; and rbenv init - fish | source
 set -x PATH "$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
+# bun
+set -x BUN_INSTALL "$HOME/.bun"
+set -x PATH $BUN_INSTALL/bin $PATH
+
+# rust
+set -x PATH $HOME/.cargo/bin $PATH
+
 # shell prompt
 starship init fish | source
-
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
-set --export PATH /home/hungtd/.cargo/bin $PATH
