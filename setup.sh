@@ -15,6 +15,7 @@ cp -r ./dotfiles/i3status $HOME/.config
 cp -r ./dotfiles/rofi $HOME/.config
 cp -r ./dotfiles/fish $HOME/.config
 cp -r ./dotfiles/picom $HOME/.config
+cp -r ./dotfiles/aerospace $HOME/.config
 cp ./dotfiles/.tmux.conf $HOME/.tmux.conf
 cp ./dotfiles/.gitconfig $HOME/.gitconfig
 cp -r ./fonts/* /usr/share/fonts/

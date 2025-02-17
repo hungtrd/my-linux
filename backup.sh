@@ -14,6 +14,7 @@ cp -r $HOME/.config/picom ./dotfiles
 cp -r $HOME/.config/neofetch ./dotfiles
 cp -r $HOME/.config/betterlockscreen ./dotfiles
 cp -r $HOME/.config/kitty ./dotfiles
+cp -r $HOME/.config/aerospace ./dotfiles
 cp $HOME/.tmux.conf ./dotfiles
 cp $HOME/.gitconfig ./dotfiles
 echo "Backup complete!"

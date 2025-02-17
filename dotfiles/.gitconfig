@@ -10,4 +10,6 @@
   co = checkout
   df = diff
   lg = log -p
+  ps = push
+  pl = pull
   cb  = "!f(){ git checkout -b $1;};f"
