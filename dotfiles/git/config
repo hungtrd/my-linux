@@ -1,0 +1,17 @@
+[init]
+  defaultBranch = master
+[user]
+	email = hungtranduy.dev@gmail.com
+	name = hungtrd
+[core]
+	editor = vim
+[alias]
+  s = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p
+  ps = push
+  pl = pull
+  cb  = "!f(){ git checkout -b $1;};f"

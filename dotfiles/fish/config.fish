@@ -17,10 +17,10 @@
 #********************************************************************#
 
 # aliases
-if type -q exa
-    alias ll "exa -l -g --icons"
+if type -q eza
+    alias ll "eza -l -g --icons"
     alias lla "ll -a"
-    alias ls "exa --icons"
+    alias ls "eza --icons"
 end
 
 alias cl clear
@@ -65,6 +65,13 @@ set -x PATH $BUN_INSTALL/bin $PATH
 # rust
 set -x PATH $HOME/.cargo/bin $PATH
 
+# cursor
+fish_add_path $HOME/.local/bin
+
+# nodejs
+set -x PATH $HOME/.npm-global/bin $PATH
+
 # shell prompt
 starship init fish | source
+
 

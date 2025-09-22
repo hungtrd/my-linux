@@ -1,0 +1,14 @@
+# Git ignore file
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# env file
+.env
+
+# Editor/IDE
+# .idea/
+# .vscode/
