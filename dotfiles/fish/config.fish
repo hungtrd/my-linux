@@ -27,9 +27,9 @@ alias cl clear
 alias x exit
 
 # Git alias
-alias gst "git status"
-alias gad "git add -A"
-alias gcm "git commit -m"
+alias g "git"
+
+alias note "lazytodo"
 
 alias vim nvim
 
@@ -47,6 +47,7 @@ end
 
 
 # Variables
+set -U nvm_default_version v24.13.0
 
 # go
 set -x GOROOT /usr/local/go
@@ -71,7 +72,18 @@ fish_add_path $HOME/.local/bin
 # nodejs
 set -x PATH $HOME/.npm-global/bin $PATH
 
+# java
+set -x JAVA_HOME "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+set -x ANDROID_HOME $HOME/Library/Android/sdk
+set -x PATH $ANDROID_HOME/platform-tools $ANDROID_HOME/cmdline-tools/latest/bin $PATH
+
+
 # shell prompt
 starship init fish | source
 
 
+
+
+# Added by Antigravity CLI installer
+set -gx PATH "/Users/hungtran/.local/bin" $PATH
+set -x GPG_TTY "$(tty)"

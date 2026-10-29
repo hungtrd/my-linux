@@ -37,12 +37,20 @@ default-root-container-orientation = 'auto'
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-on-focus-changed = ['move-mouse window-lazy-center']
+on-focus-changed = [
+#   'exec-and-forget /bin/bash -c "/Users/hungtran/.config/aerospace/scripts/update_gaps.sh"',
+    'move-mouse window-lazy-center'
+]
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
 automatically-unhide-macos-hidden-apps = false
+
+# exec-on-workspace-change = [
+#   "/bin/bash", "-c",
+#   "$HOME/.config/aerospace/scripts/update_gaps.sh"
+# ]
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -63,15 +71,18 @@ automatically-unhide-macos-hidden-apps = false
     outer.bottom =     15
     outer.top =        15
     outer.left  = [
-      { monitor."LG HDR WQHD" = 600 },   # màn hình LG ultrawide
-      15                                  # mặc định cho mọi màn hình còn lại (MacBook)
+      { monitor."LG HDR WQHD" = 500 },   # màn hình LG ultrawide
+      15                                 # mặc định cho mọi màn hình còn lại (MacBook)
     ]
     outer.right = [
-      { monitor."LG HDR WQHD" = 600 },
+      { monitor."LG HDR WQHD" = 500 },
       15
     ]
-    # outer.left =       600
-    # outer.right =      600
+
+    # BEGIN_DYNAMIC_OUTER
+    # outer.left  = 15
+    # outer.right = 15
+    # END_DYNAMIC_OUTER
 
 
 # 'main' binding mode declaration
@@ -136,6 +147,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-7 = 'workspace 7'
     alt-8 = 'workspace 8'
     alt-9 = 'workspace 9'
+    alt-0 = 'workspace 10'
     # alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
     # alt-b = 'workspace B'
     # alt-c = 'workspace C'
@@ -169,6 +181,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-7 = 'move-node-to-workspace 7'
     alt-shift-8 = 'move-node-to-workspace 8'
     alt-shift-9 = 'move-node-to-workspace 9'
+    alt-shift-0 = 'move-node-to-workspace 10'
     # alt-shift-a = 'move-node-to-workspace A'
     # alt-shift-b = 'move-node-to-workspace B'
     # alt-shift-c = 'move-node-to-workspace C'

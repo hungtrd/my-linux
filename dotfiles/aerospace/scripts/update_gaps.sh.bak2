@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# ===== Debug mode =====
+set -Eeuo pipefail
+# Bật trace có điều kiện (comment nếu spam quá)
+# set -x
+
+LOG="/tmp/aero_gaps.log"
+CFG="${HOME}/.config/aerospace/aerospace.toml"
+TARGET_MONITOR="LG HDR WQHD"
+
+ts() { date '+%Y-%m-%d %H:%M:%S%z'; }
+log() { echo "[$(ts)] $*" >> "$LOG"; }
+
+trap 'log "ERROR at line $LINENO (exit code $?)"' ERR
+
+# Ghi tiêu đề mỗi lần chạy
+log "---- update_gaps.sh START ----"
+log "PATH=$PATH"
+command -v aerospace >>"$LOG" 2>&1 || log "aerospace not found in PATH!"
+
+get_window_count() {
+  aerospace list-windows --workspace focused --count 2>>"$LOG" || echo 0
+}
+
+get_focused_monitor() {
+  aerospace list-monitors --focused --format "%{monitor-name}" 2>>"$LOG" | head -n1
+}
+
+apply_outer_gaps() {
+  local left="$1" right="$2"
+  log "apply_outer_gaps left=$left right=$right"
+
+  # 0) Kiểm tra file cấu hình
+  if [[ ! -f "$CFG" ]]; then
+    log "ERROR: config file not found: $CFG"
+    return 0
+  fi
+  # Kiểm tra marker tồn tại để tránh ghi nhầm
+  if ! grep -q '# BEGIN_DYNAMIC_OUTER' "$CFG"; then
+    log "Marker BEGIN_DYNAMIC_OUTER not found in $CFG"
+  fi
+  if ! grep -q '# END_DYNAMIC_OUTER' "$CFG"; then
+    log "Marker END_DYNAMIC_OUTER not found in $CFG"
+  fi
+
+  local tmp; tmp="$(mktemp)"
+  awk -v L="$left" -v R="$right" '
+    BEGIN{in=0}
+    /# BEGIN_DYNAMIC_OUTER/ { print; print "  outer.left  = " L; print "  outer.right = " R; in=1; next }
+    /# END_DYNAMIC_OUTER/   { in=0 }
+    { if(!in) print }
+  ' "$CFG" > "$tmp"
+
+  # So sánh trước/sau để log nếu không đổi
+  if cmp -s "$tmp" "$CFG"; then
+    log "No change in config (outer values identical); skip reload."
+  else
+    mv "$tmp" "$CFG"
+    log "Config updated; reloading…"
+    aerospace reload-config >>"$LOG" 2>&1 || log "reload-config failed"
+  fi
+
+  rm -f "$tmp" 2>/dev/null || true
+}
+
+update_gaps() {
+  local count monitor
+  count="$(get_window_count)"
+  monitor="$(get_focused_monitor)"
+  log "window_count=$count | focused_monitor=$monitor"
+
+  if [[ "$count" == "1" && "$monitor" == "$TARGET_MONITOR" ]]; then
+    apply_outer_gaps 600 600
+  else
+    apply_outer_gaps 15 15
+  fi
+}
+
+update_gaps
+log "---- update_gaps.sh END ----"

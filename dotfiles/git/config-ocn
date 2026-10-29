@@ -1,0 +1,7 @@
+[user]
+	name = penguin
+	email = penguin@localhost
+	signingkey = 2D0E6D2EE8F31C09
+
+[commit]
+	gpgsign = true

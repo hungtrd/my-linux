@@ -1,23 +1,41 @@
-#!/bin/bash
-# backup.sh - Backup script for the $HOME/.config/ directory
+#!/usr/bin/env bash
+# backup.sh - Backup script for the $HOME/.config/ directory (macOS & Linux)
+
+cd "$(dirname "$0")" || exit 1
+
+# backup <source> [dest]: copy a file or directory, skip what doesn't exist on this machine
+backup() {
+  if [ -e "$1" ]; then
+    cp -R "$1" "${2:-./dotfiles}"
+  else
+    echo "  skip (not found): $1"
+  fi
+}
 
 echo "Backing up dotfiles..."
 
 # skip neovim for now
-# cp -r $HOME/.config/nvim ./dotfiles
-cp -r $HOME/.config/alacritty ./dotfiles
-cp -r $HOME/.config/i3 ./dotfiles
-cp -r $HOME/.config/i3status ./dotfiles
-cp -r $HOME/.config/rofi ./dotfiles
-cp -r $HOME/.config/fish ./dotfiles
-cp -r $HOME/.config/picom ./dotfiles
-cp -r $HOME/.config/neofetch ./dotfiles
-cp -r $HOME/.config/betterlockscreen ./dotfiles
-cp -r $HOME/.config/kitty ./dotfiles
-cp -r $HOME/.config/aerospace ./dotfiles
-cp -r $HOME/.config/git ./dotfiles
-cp $HOME/.tmux.conf ./dotfiles
-cp $HOME/.gitconfig ./dotfiles
+# backup $HOME/.config/nvim
+backup $HOME/.config/alacritty
+backup $HOME/.config/i3
+backup $HOME/.config/i3status
+backup $HOME/.config/rofi
+backup $HOME/.config/fish
+backup $HOME/.config/picom
+backup $HOME/.config/neofetch
+backup $HOME/.config/betterlockscreen
+backup $HOME/.config/kitty
+backup $HOME/.config/aerospace
+backup $HOME/.config/git
+backup $HOME/.config/tmux
+backup $HOME/.gitconfig
+
+# Claude Code statusline (feeds usage to tmux) + only the statusLine key of settings.json
+mkdir -p ./dotfiles/claude
+backup $HOME/.claude/statusline.sh ./dotfiles/claude/
+if [ -f $HOME/.claude/settings.json ] && command -v jq >/dev/null; then
+  jq '{statusLine}' $HOME/.claude/settings.json > ./dotfiles/claude/settings.statusLine.json
+fi
 echo "Backup complete!"
 
 echo "..............................................."
@@ -33,8 +51,6 @@ if [[ $choice == "yes" ]]; then
   git push origin master
 
   echo "Push complete!"
-elif [[ $choice == "no" ]]; then
-  echo "Backup without commit!"
 else
   echo "Backup without commit!"
 fi

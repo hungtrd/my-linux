@@ -16,7 +16,19 @@ cp -r ./dotfiles/rofi $HOME/.config
 cp -r ./dotfiles/fish $HOME/.config
 cp -r ./dotfiles/picom $HOME/.config
 cp -r ./dotfiles/aerospace $HOME/.config
-cp ./dotfiles/.tmux.conf $HOME/.tmux.conf
+cp -r ./dotfiles/tmux $HOME/.config
 cp ./dotfiles/.gitconfig $HOME/.gitconfig
-cp -r ./fonts/* /usr/share/fonts/
+
+# Claude Code statusline: copy script, merge statusLine key into settings.json (needs jq)
+mkdir -p $HOME/.claude
+cp ./dotfiles/claude/statusline.sh $HOME/.claude/
+settings=$HOME/.claude/settings.json
+[ -f $settings ] || echo '{}' > $settings
+jq -s '.[0] * .[1]' $settings ./dotfiles/claude/settings.statusLine.json > $settings.tmp && mv $settings.tmp $settings
+
+if [ "$(uname)" = "Darwin" ]; then
+  cp -r ./fonts/* ~/Library/Fonts/
+else
+  cp -r ./fonts/* /usr/share/fonts/
+fi
 cp -r ./wallpapers/* ~/Pictures/

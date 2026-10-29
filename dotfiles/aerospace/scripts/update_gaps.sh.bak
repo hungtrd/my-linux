@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CFG="${HOME}/.config/aerospace/aerospace.toml"
+TARGET_MONITOR="LG HDR WQHD"
+
+get_window_count() {
+  aerospace list-windows --workspace focused --count 2>/dev/null || echo 0
+}
+
+get_focused_monitor() {
+  aerospace list-monitors --focused --format "%{monitor-name}" 2>/dev/null | head -n1
+}
+
+apply_outer_gaps() {
+  local left="$1" right="$2"
+  # Thay block giữa 2 marker để an toàn
+  # Marker bạn cần đặt sẵn trong TOML:
+  #   # BEGIN_DYNAMIC_OUTER
+  #   outer.left  = 15
+  #   outer.right = 15
+  #   # END_DYNAMIC_OUTER
+  local tmp
+  tmp="$(mktemp)"
+  awk -v L="$left" -v R="$right" '
+    BEGIN{in=0}
+    /# BEGIN_DYNAMIC_OUTER/ { print; print "  outer.left  = " L; print "  outer.right = " R; in=1; next }
+    /# END_DYNAMIC_OUTER/   { in=0 }
+    { if(!in) print }
+  ' "$CFG" > "$tmp"
+  mv "$tmp" "$CFG"
+  aerospace reload-config
+}
+
+update_gaps() {
+  local count monitor
+  count="$(get_window_count)"
+  monitor="$(get_focused_monitor)"
+
+  if [[ "$count" == "1" && "$monitor" == "$TARGET_MONITOR" ]]; then
+    apply_outer_gaps 600 600
+  else
+    apply_outer_gaps 15 15
+  fi
+}
+
+update_gaps
