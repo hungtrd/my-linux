@@ -1,0 +1,12 @@
+onboarding = false
+
+[ui]
+status_indicators = "symbols"
+
+[theme]
+name = "terminal"
+auto_switch = false
+
+[terminal]
+# Executable used for new interactive panes (empty means $SHELL, which is zsh here).
+default_shell = "/opt/homebrew/bin/fish"

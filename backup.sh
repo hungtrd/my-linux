@@ -30,6 +30,10 @@ backup $HOME/.config/git
 backup $HOME/.config/tmux
 backup $HOME/.gitconfig
 
+# herdr: only config.toml (the directory also holds sockets, logs and session snapshots)
+mkdir -p ./dotfiles/herdr
+backup $HOME/.config/herdr/config.toml ./dotfiles/herdr/
+
 # Claude Code statusline (feeds usage to tmux) + only the statusLine key of settings.json
 mkdir -p ./dotfiles/claude
 backup $HOME/.claude/statusline.sh ./dotfiles/claude/
